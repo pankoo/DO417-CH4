@@ -1,0 +1,20 @@
+---
+- name: Configure IIS Server
+  hosts: win1.example.com
+  vars:
+    web_pkg: Web-Server
+    web_svc: W3Svc
+
+  tasks:
+
+
+    - name: Install {{ web_pkg }} for IIS server
+      win_feature:
+        name: "{{ web_pkg }}"
+        state: present
+
+
+    - name: Ensure {{ web_svc }} started
+      win_feature:
+        name: "{{ web_svc }}"
+        state: started
