@@ -1,0 +1,19 @@
+---
+- name: Testing ansible facts for windows
+  hosts: win1.example.com
+  tasks:
+
+    - name: Gather win1 facts
+      win_product_facts:
+
+    - name: Gather Disk facts for win1 host
+      win_disk_facts:
+
+    - name: Use facts in summary
+      win_copy:
+        content: |
+          Hello, The OS running on this system is {{ ansible_facts['os_name'] }}
+          and the Machine ID is  {{ ansible_facts['machine_id'] }}
+          Machine was last booted on {{ ansible_facts['lastboot'] }}
+          Disk size is {{ ansible_facts['disk'][0]['size'] }}
+        dest: "C:\Users\Desktop\summary-{{ ansible_facts['hostname'] }}.txt"
